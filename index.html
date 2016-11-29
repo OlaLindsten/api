@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>api</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    </head>
+    <body onload="init();">
+        <div id="map"></div>
+        <script src="jquery/dist/jquery.min.js"></script>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <script src="js/modernizr-custom.js" type="text/javascript"></script>
+        <script src="js/script.js" type="text/javascript"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD87KDtA4OkpIs5IEVT4d_gEdAwlE-aYTw&callback=initMap"
+        async defer></script>
+    </body>
+</html>
