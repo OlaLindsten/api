@@ -8,9 +8,10 @@ function initMap() {
 }
 var apiUtanAvgift;
 var apiautomat;
+var apiMedAvgift;
 var init = function () {
     console.log("onload fungerar..");
-    
+    //Returnerar kommunala gatumarksparkeringar utan avgift
     $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/PublicTimeParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
         console.log("--DATA--");
         console.log(data);
@@ -22,12 +23,35 @@ var init = function () {
             
         }
     });
+    //Returnerar kommunala parkeringsautomater
     $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/PublicPayMachines/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
         apiautomat = data;
          console.log("--DATA2--");
         console.log(data);
 
         for (var i = 0; i < apiautomat.length; i++) {
+            asd(i);
+           
+        }
+    });
+    //Returnerar kommunala gatumarksparkeringar med avgift
+    $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/PublicTollParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data){
+        apiMedAvgift = data;
+         console.log("--DATA3--");
+        console.log(data);
+        
+        for (var i = 0; i < apiMedAvgift.length; i++) {
+            asd(i);
+           
+        }
+    });
+    //Returnerar kommunala handikappsparkeringar
+    $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/HandicapParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data){
+        apiHandikapp = data;
+         console.log("--DATA4--");
+        console.log(data);
+        
+        for (var i = 0; i < apiHandikapp.length; i++) {
             asd(i);
            
         }
@@ -39,12 +63,18 @@ var init = function () {
 //Returnerar kommunala gatumarksparkeringar utan avgift
 function asd(i) {
     
+    var medAvgiftIcon = 'img/medavgift.png';
+    var medAvgiftMaker = new google.maps.Marker({
+        position: {lat: apiMedAvgift[i].Lat, lng: apiMedAvgift[i].Long},
+        map: map,
+        icon: medAvgiftIcon
+    });
     
-    var parking = 'img/parking.png';
+    var utanAvgiftIcon = 'img/parking.png';
     var utanAvgiftMarker = new google.maps.Marker({
         position: {lat: apiUtanAvgift[i].Lat, lng: apiUtanAvgift[i].Long},
         map: map,
-        icon: parking
+        icon: utanAvgiftIcon
 
     });
     var automaticon = "img/parkeringmeter2.png";
@@ -52,9 +82,13 @@ function asd(i) {
         position: {lat: apiautomat[i].Lat, lng: apiautomat[i].Long},
         map: map,
         icon: automaticon
-        
-        
-
+    });
+    
+    var handikappIcon = "img/handikapp.png";
+    var handikappMarker = new google.maps.Marker({
+        position: {lat: apiHandikapp[i].Lat, lng: apiHandikapp[i].Long},
+        map: map,
+        icon: handikappIcon
     });
     //iformations fönster om automater 
     var infoauto = '<div class="titelbakgrund"><p class="titel">Parkering automat</p></div>'+
@@ -105,9 +139,7 @@ function asd(i) {
 
 
 
-//data[i].Lat
-//http://data.goteborg.se/ParkingService/v1.0/PublicTimeParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json
-//http://data.goteborg.se/ParkingService/v1.0/PublicPayMachines/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json
+
 function loadMap(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
