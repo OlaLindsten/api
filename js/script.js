@@ -99,19 +99,19 @@ function asd(i) {
         icon: McIcon
     });
     //iformations fönster om automater 
-    var infoauto = '<div class="titelbakgrund"><p class="titel">Parkering automat</p></div>' +
-            '<div class="subTitel">Plats: </div>' +
+    var infoauto = '<div class="infoFonster"><p class="titel">Automat</p></div>' +
+            '<div class="border"><p class="subTitel">Plats: </p>' +
             apiautomat[i].Name +
-            '<div class="subTitel">Max parkeringstid: </div>' +
+            '<p class="subTitel">Max parkeringstid: </p>' +
             apiautomat[i].MaxParkingTime +
-            '<div class="subTitel">Kostnad: </div>' +
-            apiautomat[i].ParkingCost;
+            '<p class="subTitel">Kostnad: </p>' +
+            apiautomat[i].ParkingCost+'</div>';
     var autowindow = new google.maps.InfoWindow({
         content: infoauto
     });
     automat.addListener('click', function () {
         autowindow.open(map, automat);
-        
+
     });
     //ifall parkeringsplatser eller extra info inte finns på parkeringar utan avgift
     var parkeringsPlatserUtanAvgift;
@@ -123,6 +123,11 @@ function asd(i) {
 
     var extraInfoUtanAvgift;
     if (apiUtanAvgift[i].ExtraInfo === undefined) {
+        extraInfoUtanAvgift = '</div>';
+    } else {
+        extraInfoUtanAvgift = '<p class="subTitel">Extra info: </p>' + apiUtanAvgift[i].ExtraInfo +'</div>';
+    }
+    
     var parkeringsPlatserMedAvgift;
     if (apiMedAvgift[i].ParkingSpaces === undefined) {
         parkeringsPlatserMedAvgift = '';
@@ -132,43 +137,27 @@ function asd(i) {
 
     var extraInfoMedAvgift;
     if (apiMedAvgift[i].ExtraInfo === undefined) {
-        extraInfoMedAvgift = '';
+        extraInfoMedAvgift = '</div>';
     } else {
-        extraInfoMedAvgift = '<p class="subTitel">Extra info: </p>' + apiMedAvgift[i].ExtraInfo;
-    }    extraInfoUtanAvgift = '';
-    } else {
-        extraInfoUtanAvgift = '<p class="subTitel">Extra info: </p>' + apiUtanAvgift[i].ExtraInfo;
-    }
-
-    if (apiMedAvgift[i].ParkingSpaces === undefined) {
-        parkeringsPlatserMedAvgift = '';
-    } else {
-        parkeringsPlatserMedAvgift = '<p class="subTitel">Parkerings platser: </p>' + apiMedAvgift[i].ParkingSpaces;
-    }
-
-    var extraInfoMedAvgift;
-    if (apiMedAvgift[i].ExtraInfo === undefined) {
-        extraInfoMedAvgift = '';
-    } else {
-        extraInfoMedAvgift = '<p class="subTitel">Extra info: </p>' + apiMedAvgift[i].ExtraInfo;
+        extraInfoMedAvgift = '<p class="subTitel">Extra info: </p>' + apiMedAvgift[i].ExtraInfo +'</div>';
     }
 
     var parkeringsPlatserHandi;
     if (apiHandikapp[i].ParkingSpaces === undefined) {
-        parkeringsPlatserHandi = '';
+        parkeringsPlatserHandi = '<div>';
     } else {
-        parkeringsPlatserHandi = '<p class="subTitel">Parkerings platser: </p>' + apiHandikapp[i].ParkingSpaces;
+        parkeringsPlatserHandi = '<p class="subTitel">Parkerings platser: </p>' + apiHandikapp[i].ParkingSpaces + '</div>';
     }
 
 
     //iformations fönster om parkeringar utan avgift
     var infoUtan = '<div class="infoFonster"><p class="titel">Parkering utan avgift</p></div>' +
-            '<p class="subTitel">Plats: </p>' +
+            '<div class="border"><p class="subTitel">Plats: </p>' +
             apiUtanAvgift[i].Name +
             '<p class="subTitel">Max parkeringstid: </p>' +
             apiUtanAvgift[i].MaxParkingTime +
-            '<p>'+parkeringsPlatserUtanAvgift+'</p>' +
-            '<p>'+extraInfoUtanAvgift+'</p>';
+                parkeringsPlatserUtanAvgift+
+                extraInfoUtanAvgift;
 
     var windowUtan = new google.maps.InfoWindow({
         content: infoUtan
@@ -176,17 +165,16 @@ function asd(i) {
     utanAvgiftMarker.addListener('click', function () {
         windowUtan.open(map, utanAvgiftMarker);
     });
-    var parkeringsPlatserMedAvgift;
     
 
     // informations fönster om parkeringar med avgift
     var infoMed = '<div class="infoFonster"><p class="titel">Parkering med avgift</p></div>' +
-            '<p class="subTitel">Plats: </p>' +
+            '<div class="border"><p class="subTitel">Plats: </p>' +
             apiMedAvgift[i].Name +
             '<p class="subTitel">Max parkeringstid: </p>' +
             apiMedAvgift[i].MaxParkingTime +
-            '<p>'+parkeringsPlatserMedAvgift+'</p>' +
-            '<p>' + extraInfoMedAvgift+'</p>';
+                parkeringsPlatserMedAvgift
+                + extraInfoMedAvgift;
     var windowMed = new google.maps.InfoWindow({
         content: infoMed
         
@@ -197,11 +185,11 @@ function asd(i) {
     
     //informations fönster om parkering för handikappade
     var infoHandi = '<div class="infoFonster"><p class="titel">Handikapparkering</p></div>' +
-            '<p class="subTitel">Plats: </p>' +
+            '<div class="border"><p class="subTitel">Plats: </p>' +
             apiHandikapp[i].Name +
             '<p class="subTitel">Max parkeringstid: </p>' +
             apiHandikapp[i].MaxParkingTime +
-            '<p>'+parkeringsPlatserHandi+'</p>';
+                parkeringsPlatserHandi;
     var windowHandi = new google.maps.InfoWindow({
         content: infoHandi 
     });
@@ -210,10 +198,10 @@ function asd(i) {
     });
     
     var infoMc = '<div class="infoFonster"><p class="titel">Mc parkeringar</p></div>' +
-            '<p class="subTitel">Plats: </p>' +
+            '<div class="border"><p class="subTitel">Plats: </p>' +
             apiMc[i].Name +
             '<p class="subTitel">Max parkeringstid: </p>' +
-            apiMc[i].MaxParkingTime;
+            apiMc[i].MaxParkingTime +'</div>';
     var windowMc = new google.maps.InfoWindow({
         content: infoMc
     });
