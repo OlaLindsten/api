@@ -218,12 +218,17 @@ function asd(i, parkeringsNamn) {
             map: map,
             icon: mcIcon
         });
-
+        var maxParkeringMc;
+        if(apiMc[i].MaxParkingTime === undefined){
+            maxParkeringMc = "</div>";
+        }else{
+            maxParkeringMc = '<p class="subTitel">Max parkeringstid: </p>'+apiMc[i].MaxParkingTime + '</div>';
+        }
+        
         var infoMc = '<div class="infoFonster"><p class="titel">Mc parkeringar</p></div>' +
                 '<div class="border"><p class="subTitel">Plats: </p>' +
                 apiMc[i].Name +
-                '<p class="subTitel">Max parkeringstid: </p>' +
-                apiMc[i].MaxParkingTime + '</div>';
+                maxParkeringMc;
         var windowMc = new google.maps.InfoWindow({
             content: infoMc
         });
