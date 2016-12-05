@@ -53,7 +53,6 @@ function validate() {
                 console.log("klar mamma");
             }
         });
-        
     }
     if (choice2 === true) {
         console.log("choice2 fungerar");
@@ -96,7 +95,6 @@ function validate() {
 
             }
         });
-
     }
     if (choice5 === true) {
         console.log("choice5 fungerar");
@@ -122,7 +120,6 @@ function validate() {
     }
     return true;
 }
-
 
 //Returnerar kommunala gatumarksparkeringar utan avgift
 function asd(i, parkeringsNamn) {
