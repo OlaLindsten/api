@@ -18,71 +18,111 @@ var utanAvgiftIcon;
 var handikappIcon;
 var automaticon;
 var McIcon;
+
 var init = function () {
     console.log("onload fungerar..");
+}
 
-    //IF(checkbox.checked())
-    utanAvgiftIcon = 'img/grön.png';
-    //Returnerar kommunala gatumarksparkeringar utan avgift
-    $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/PublicTimeParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
-        apiUtanAvgift = data;
+function toggle(master, cn) {
+    var cbarray = document.getElementsByClassName(cn);
+    for (var i = 0; i < cbarray.length; i++) {
+        var cb = document.getElementById(cbarray[i].id);
+        cb.checked = master.checked;
+    }
+}
 
-        for (var i = 0; i < apiUtanAvgift.length; i++) {
-            console.log("apiLängd: " + apiUtanAvgift.length);
-            console.log("i: " + i);
-            asd(i, "utanAvgift");
-            console.log("klar mamma");
+function validate() {
+    var choice1 = document.getElementById("parkeringUtanAvgift").checked;
+    var choice2 = document.getElementById("parkingsAutomat").checked;
+    var choice3 = document.getElementById("parkeringMedAvgift").checked;
+    var choice4 = document.getElementById("parkeringMc").checked;
+    var choice5 = document.getElementById("parkeringHandikapp").checked;
 
-        }
-    });
 
-    //IF(checkox.checked())
-    automaticon = "img/brun.png";
-    //Returnerar kommunala parkeringsautomater
-    $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/PublicPayMachines/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
-        apiautomat = data;
+    if (choice1 === true) {
+        console.log("choice1 fungerar");
+        //windowUtan.close();
+        utanAvgiftIcon = 'img/grön.png';
+        //Returnerar kommunala gatumarksparkeringar utan avgift
+        $.getJSON('https://crossorigin.me/http://data.goteborg.se/ParkingService/v1.0/PublicTimeParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
+            apiUtanAvgift = data;
+            for (var i = 0; i < apiUtanAvgift.length; i++) {
+                console.log("apiLängd: " + apiUtanAvgift.length);
+                console.log("i: " + i);
+                asd(i, "utanAvgift");
+                console.log("klar mamma");
+            }
+        });
+        
+    }
+    if (choice2 === true) {
+        console.log("choice2 fungerar");
+        //autowindow.close();
+        automaticon = "img/brun.png";
+        //Returnerar kommunala parkeringsautomater
+        $.getJSON('https://crossorigin.me/http://data.goteborg.se/ParkingService/v1.0/PublicPayMachines/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
+            apiautomat = data;
 
-        for (var i = 0; i < apiautomat.length; i++) {
-            asd(i, "automater");
+            for (var i = 0; i < apiautomat.length; i++) {
+                asd(i, "automater");
 
-        }
-    });
-    
-    //IF(checkox.checked())
-    medAvgiftIcon = 'img/röd.png';
-    //Returnerar kommunala gatumarksparkeringar med avgift
-    $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/PublicTollParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
-        apiMedAvgift = data;
+            }
+        });
+    }
+    if (choice3 === true) {
+        console.log("choice3 fungerar");
+        //windowMed.close();
+        medAvgiftIcon = 'img/röd.png';
+        //Returnerar kommunala gatumarksparkeringar med avgift
+        $.getJSON('https://crossorigin.me/http://data.goteborg.se/ParkingService/v1.0/PublicTollParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
+            apiMedAvgift = data;
 
-        for (var i = 0; i < apiMedAvgift.length; i++) {
-            asd(i, "medAvgift");
+            for (var i = 0; i < apiMedAvgift.length; i++) {
+                asd(i, "medAvgift");
 
-        }
-    });
-    
-    //IF(checkox.checked())
-    handikappIcon = "img/gul.png";
-    //Returnerar kommunala handikappsparkeringar
-    $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/HandicapParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
-        apiHandikapp = data;
+            }
+        });
+    }
+    if (choice4 === true) {
+        console.log("choice4 fungerar");
+        //windowHandi.close();
+        handikappIcon = "img/gul.png";
+        //Returnerar kommunala handikappsparkeringar
+        $.getJSON('https://crossorigin.me/http://data.goteborg.se/ParkingService/v1.0/HandicapParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
+            apiHandikapp = data;
 
-        for (var i = 0; i < apiHandikapp.length; i++) {
-            asd(i, "handikapp");
+            for (var i = 0; i < apiHandikapp.length; i++) {
+                asd(i, "handikapp");
 
-        }
-    });
-    //IF(checkox.checked())
-    mcIcon = "img/blå.png";
-    //Returnerar MC-parkeringar
-    $.getJSON('http://cors.io/?http://data.goteborg.se/ParkingService/v1.0/MCParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
-        apiMc = data;
+            }
+        });
 
-        for (var i = 0; i < apiMc.length; i++) {
-            asd(i, "mc");
+    }
+    if (choice5 === true) {
+        console.log("choice5 fungerar");
+        //windowMc.close();
+        mcIcon = "img/blå.png";
+        //Returnerar MC-parkeringar
+        $.getJSON('https://crossorigin.me/http://data.goteborg.se/ParkingService/v1.0/HandicapParkings/8e4034b9-189e-463d-8643-0c19807bb7e8?&format=json', function (data) {
+            apiMc = data;
 
-        }
-    });
-};
+            for (var i = 0; i < apiMc.length; i++) {
+                asd(i, "mc");
+
+            }
+        });
+    } else if ((choice1 === false) &&
+            (choice2 === false) &&
+            (choice3 === false) &&
+            (choice4 === false) &&
+            (choice5 === false))
+    {
+        alert("choose atleast one parkingspace");
+        return false;
+    }
+    return true;
+}
+
 
 //Returnerar kommunala gatumarksparkeringar utan avgift
 function asd(i, parkeringsNamn) {
@@ -219,12 +259,12 @@ function asd(i, parkeringsNamn) {
             icon: mcIcon
         });
         var maxParkeringMc;
-        if(apiMc[i].MaxParkingTime === undefined){
+        if (apiMc[i].MaxParkingTime === undefined) {
             maxParkeringMc = "</div>";
-        }else{
-            maxParkeringMc = '<p class="subTitel">Max parkeringstid: </p>'+apiMc[i].MaxParkingTime + '</div>';
+        } else {
+            maxParkeringMc = '<p class="subTitel">Max parkeringstid: </p>' + apiMc[i].MaxParkingTime + '</div>';
         }
-        
+
         var infoMc = '<div class="infoFonster"><p class="titel">Mc parkeringar</p></div>' +
                 '<div class="border"><p class="subTitel">Plats: </p>' +
                 apiMc[i].Name +
@@ -267,7 +307,5 @@ function loadMap(position) {
 
     });
 }
-
-
 
 
